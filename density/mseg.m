@@ -19,8 +19,8 @@ sigma   = 0.8;  %std of smoothing gaussian filter
 n       = 25;   %number of gray levels
 
 % Post-processing parameters
-skin_gap    = 8;    % skin gap in mm
-area_th     = 16;   % area threshold in mm^2
+skin_gap    = 8;    % skin gap in mm. Original from repo is 8
+area_th     = 16;   % area threshold in mm^2. Original from repo is 16
 
 
 % Smoothing filter
