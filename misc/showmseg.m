@@ -1,20 +1,20 @@
-function [ims, mask1, pd] = showmseg(segdata)
+function [ims, mask1, pd] = showmseg(segdata,i)
 
 % display manual segmentation
-impath = segdata.path{1};
-im = ffdmRead(impath, getinfo(impath));
-mask0 = seg2mask(segdata.contour{1},...
-    segdata.cwall{1});
-maske = seg2mask(segdata.contour{1},...
-    segdata.cwall{1},...
-    [], segdata.gap1,...
-    segdata.gap2);
+impath = segdata.images{i};
+im = ffdmRead(char(impath), getinfo(char(impath)));
+mask0 = seg2mask(segdata.contour{i},...
+    segdata.cwall{i});
+maske = seg2mask(segdata.contour{i},...
+    segdata.cwall{i},...
+    [], segdata.gap1(i),...
+    segdata.gap2(i));
 
 
-mask1 = im>segdata.th1;
+mask1 = im>segdata.th1(i);
 mask1 = imresize(mask1, size(maske));
 mask1 = mask1&maske;
-mask1 = bwareaopen(mask1, segdata.th2);
+mask1 = bwareaopen(mask1, segdata.th2(i));
 pd = sum(mask1(:))/sum(mask0(:));
 
 im = adapthisteq(mat2gray(im));
